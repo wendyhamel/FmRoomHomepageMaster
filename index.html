@@ -23,8 +23,8 @@
 </head>
 <body class="bg-white antialiased max-w-[1440px] mx-auto">
   <header class="absolute z-10 lg:fixed inset-x-0">
-    <div class="max-w-[1440px] mx-auto flex items-center py-10 px-6 md:gap-10 lg:pt-16 xl:pl-16 xl:gap-16">
-      <nav id="mainMobile" class="lg:hidden" x-data="{menu: false}">
+    <nav class="max-w-[1440px] mx-auto flex items-center py-10 px-6 md:gap-10 lg:pt-16 xl:pl-16 xl:gap-16">
+      <div class="lg:hidden" x-data="{menu: false}">
         <button @click="menu = true" class="pt-1.5">
           <span class="sr-only">open menu</span>
           <img src="images/icon-hamburger.svg" alt="menu icon">
@@ -44,18 +44,18 @@
             </ul>
           </div>
         </div>
-      </nav>
+      </div>
       <a class="mx-auto md:m-0" href="#"><h1 class="sr-only">Room</h1><img src="images/logo.svg" alt=""></a>
-      <nav id="mainDesktop" class="hidden lg:block">
+      <div class="hidden lg:block">
         <ul class="flex gap-8 text-white">
           <li class="group"><a href="">home</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
           <li class="group"><a href="">shop</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
           <li class="group"><a href="">about</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
           <li class="group"><a href="">contact</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
         </ul>
-      </nav>
+      </div>
     
-    </div>
+    </nav>
   </header>
   <main>
     <section x-data="content()">
@@ -67,7 +67,7 @@
               <img class="w-full h-full object-cover hidden sm:block md:hidden lg:block" :src="slide.image.desktop" :alt="slide.image.altText">
             </div>
           </div>
-          <nav id="slideNav" class="absolute bottom-0 right-0 md:translate-x-full">
+          <nav class="absolute bottom-0 right-0 md:translate-x-full">
             <ul class="flex bg-black">
               <li>
                 <button
