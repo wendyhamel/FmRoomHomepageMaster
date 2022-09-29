@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-gray-dark/10">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +21,10 @@
   <title>Frontend Mentor | Room homepage</title>
 
 </head>
-<body class="antialiased">
-  <header class="absolute z-10 md:fixed inset-x-0">
-    <div class="flex items-center py-10 px-6 md:gap-10">
-      <nav class="md:hidden" x-data="{menu: false}">
+<body class="bg-white antialiased max-w-[1440px] mx-auto">
+  <header class="absolute z-10 lg:fixed inset-x-0">
+    <div class="max-w-[1440px] mx-auto flex items-center py-10 px-6 md:gap-10 lg:pt-16 xl:pl-16 xl:gap-16">
+      <nav class="lg:hidden" x-data="{menu: false}">
         <button @click="menu = true" class="pt-1.5">
           <span class="sr-only">open menu</span>
           <img src="images/icon-hamburger.svg" alt="menu icon">
@@ -45,13 +45,13 @@
           </div>
         </div>
       </nav>
-      <a class="mx-auto pb-1 pr-1 md:m-0" href="#"><h1 class="sr-only">Room</h1><img src="images/logo.svg" alt=""></a>
-      <nav class="hidden md:block">
+      <a class="mx-auto md:m-0" href="#"><h1 class="sr-only">Room</h1><img src="images/logo.svg" alt=""></a>
+      <nav class="hidden lg:block">
         <ul class="flex gap-8 text-white">
-          <li class="group"><a href="">Home</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">Shop</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">About</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">Contact</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
+          <li class="group"><a href="">home</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
+          <li class="group"><a href="">shop</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
+          <li class="group"><a href="">about</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
+          <li class="group"><a href="">contact</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
         </ul>
       </nav>
     
@@ -59,40 +59,40 @@
   </header>
   <main>
     <section x-data="content()">
-      <article class="grid -mt-1">
-        <div class="relative">
-          <div class="bg-gray-dark">
-            <div :class="{'animate-fade origin-center-center' : animation}">
-              <img class="md:hidden" :src="slide.image.mobile" :alt="slide.image.altText">
-              <img class="hidden md:block" :src="slide.image.desktop" :alt="slide.image.altText">
+      <article class="grid -mt-1 md:grid-cols-3 lg:grid-cols-12">
+        <div class="relative lg:col-span-6 xl:col-span-7">
+          <div class="bg-gray-dark h-full xl:max-h-[540px]">
+            <div class="h-full" :class="{'animate-fade origin-center-center' : animation}">
+              <img class="w-full h-full object-cover sm:hidden md:block lg:hidden" :src="slide.image.mobile" :alt="slide.image.altText">
+              <img class="w-full h-full object-cover hidden sm:block md:hidden lg:block" :src="slide.image.desktop" :alt="slide.image.altText">
             </div>
           </div>
-          <nav class="absolute bottom-0 right-0">
-            <ul class="flex">
+          <nav class="absolute bottom-0 right-0 md:translate-x-full">
+            <ul class="flex bg-black">
               <li>
                 <button
                       @click="animate; previousSlide()"
-                      class="px-6 py-5 bg-black hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300"
+                      class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">previous</span>
-                  <img class="h-4" src="images/icon-angle-left.svg">
+                  <img class="h-4 xl:h-full" src="images/icon-angle-left.svg">
                 </button>
               </li>
               <li>
                 <button
                       @click="animate; nextSlide()"
-                      class="px-6 py-5 bg-black hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300"
+                      class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">next</span>
-                  <img class="h-4" src="images/icon-angle-right.svg">
+                  <img class="h-4 xl:h-full" src="images/icon-angle-right.svg">
                 </button>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="space-y-8 py-16 px-8">
+        <div class="space-y-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-7 lg:col-span-6 xl:col-start-8 xl:col-span-5 xl:px-24 xl:py-32 xl:space-y-4">
           <div>
-            <h2 :class="{'animate-fade origin-top-left' : animation}" class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5" x-text="slide.title"></h2>
+            <h2 :class="{'animate-fade origin-top-left' : animation}" class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter" x-text="slide.title"></h2>
             <p :class="{'animate-fade origin-top-left' : animation}" class="text-gray-dark tracking-tight leading-snug pr-1" x-text="slide.description"></p>
           </div>
           <button class="flex items-center gap-4 pt-1 pb-2 uppercase text-sm font-semibold tracking-[0.95em] hover:text-gray-dark focus-visible:text-gray-dark transition duration-300">
@@ -104,10 +104,12 @@
     </section>
 
   </main>
-    <footer class="flex flex-col">
-      <img src="images/image-about-dark.jpg" alt="comfy black chairs around a coffee setSlidele">
-     <div class="px-8 py-12">
-       <h3 class="mt-1 uppercase font-semibold tracking-[0.3em] leading-none pb-4">
+    <footer class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[420px_minmax(0,_1fr)_444px]">
+      <div class="">
+        <img class="w-full h-full object-cover" src="images/image-about-dark.jpg" alt="comfy black chairs around a coffee table">
+      </div>
+     <div class="px-8 py-12 sm:row-start-2 sm:col-span-2 lg:col-start-2 lg:row-start-1 lg:col-span-1 lg:px-12 lg:py-16">
+       <h3 class="mt-1 uppercase font-semibold tracking-[0.3em] leading-none pb-4 lg:font-bold lg:tracking-[0.4em]">
          About our furniture
        </h3>
        <p class="text-gray-dark leading-snug tracking-tight pr-1">
@@ -117,8 +119,9 @@
          or anything in between. Product specialists are available to help you create your dream space.
        </p>
      </div>
-
-      <img src="images/image-about-light.jpg" alt="white chair">
+      <div class="">
+        <img class="w-full h-full object-cover" src="images/image-about-light.jpg" alt="white chair">
+      </div>
     </footer>
   <script src="js/content.js"></script>
 </body>
