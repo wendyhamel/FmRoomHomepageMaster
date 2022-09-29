@@ -14,6 +14,15 @@ tailwind.config = {
             fontSize: {
                 xxs: '0.625rem'
             }
+        },
+        animation: {
+            'fade': 'fade 600ms ease-out',
+        },
+        keyframes: {
+            'fade': {
+                '0%': { opacity: '0%', transform: 'scale(1.025)'},
+                '100%': { opacity: '100%', transform: 'scale(1)'}
+            }
         }
     }
 }
