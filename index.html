@@ -59,8 +59,8 @@
   </header>
   <main>
     <section x-data="content()">
-      <article class="grid -mt-1 md:grid-cols-3 lg:grid-cols-12">
-        <div class="relative lg:col-span-6 xl:col-span-7">
+      <article class="grid -mt-1 md:grid-cols-3 lg:grid-cols-2 xl:flex">
+        <div class="relative xl:col-span-7">
           <div class="bg-gray-dark h-full xl:max-h-[540px]">
             <div class="h-full" :class="{'animate-fade origin-center-center' : animation}">
               <img class="w-full h-full object-cover sm:hidden md:block lg:hidden" :src="slide.image.mobile" :alt="slide.image.altText">
@@ -90,7 +90,7 @@
             </ul>
           </nav>
         </div>
-        <div class="space-y-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-7 lg:col-span-6 xl:col-start-8 xl:col-span-5 xl:px-24 xl:py-32 xl:space-y-4">
+        <div class="space-y-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-2 lg:col-span-1 lg:px-12 xl:min-h-[495px] xl:w-[600px] xl:shrink-0 xl:px-24 xl:pt-32 xl:pb-[4.5rem] xl:space-y-4">
           <div>
             <h2 :class="{'animate-fade origin-top-left' : animation}" class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter" x-text="slide.title"></h2>
             <p :class="{'animate-fade origin-top-left' : animation}" class="text-gray-dark tracking-tight leading-snug pr-1" x-text="slide.description"></p>
