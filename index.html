@@ -9,21 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind (play cdn) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="js/tailwind-config.js"></script>
+  <!-- Tailwind  -->
+  <script defer src="tailwind.config.js"></script>
+
+  <link rel="stylesheet" href="./src/output.css">
+
+  <script defer src="./js/content.js"></script>
 
   <!-- Alpine.js  -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   
   <title>Frontend Mentor | Room homepage</title>
 
 </head>
-<body class="bg-white antialiased max-w-[1440px] mx-auto">
+<body x-data="content()" class="bg-white antialiased max-w-1440 mx-auto">
   <header class="absolute z-10 lg:fixed inset-x-0">
-    <nav class="max-w-[1440px] mx-auto flex items-center py-10 px-6 md:gap-10 lg:pt-16 xl:pl-16 xl:gap-16">
+    <nav class="max-w-1440 mx-auto flex items-center py-10 px-6 md:gap-10 lg:pt-16 xl:pl-16 xl:gap-16">
       <div class="lg:hidden" x-data="{menu: false}">
         <button @click="menu = true" class="pt-1.5">
           <span class="sr-only">open menu</span>
@@ -31,16 +35,17 @@
         </button>
         <div x-show="menu" class="fixed inset-0">
           <div x-show="menu" x-transition.opacity class="absolute w-full h-screen bg-black/50"></div>
-          <div x-show="menu" x-transition.origin.top.left class="relative bg-white flex gap-4 justify-between items-center py-6 px-2.5">
-            <button class="p-4 py-6" @click="menu = false">
+          <div x-show="menu" x-transition.origin.top.left class="relative bg-white flex gap-2 justify-between flex-wrap items-center py-6 px-2.5">
+            <button class="p-4 py-6 shrink-0" @click="menu = false">
               <span class="sr-only">close menu</span>
               <img src="images/icon-close.svg" alt="close icon">
             </button>
-            <ul class="flex gap-7">
-              <li><a class="font-semibold py-4" href="">home</a></li>
-              <li><a class="font-semibold py-4" href="">shop</a></li>
-              <li><a class="font-semibold py-4" href="">about</a></li>
-              <li><a class="font-semibold py-4" href="">contact</a></li>
+            <ul class="flex gap-7 px-4 sm:mr-auto">
+              <template x-for="menuItem in menuItems">
+                <li>
+                  <a class="font-semibold py-4" :href="menuItem.href" x-text="menuItem.name"></a>
+                </li>
+              </template>
             </ul>
           </div>
         </div>
@@ -48,81 +53,121 @@
       <a class="mx-auto md:m-0" href="#"><h1 class="sr-only">Room</h1><img src="images/logo.svg" alt=""></a>
       <div class="hidden lg:block">
         <ul class="flex gap-8 text-white">
-          <li class="group"><a href="">home</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">shop</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">about</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
-          <li class="group"><a href="">contact</a><div class="scale-0 border-b-2 border-black/0 group-hover:border-white group-hover:scale-100 transition duration-300"></div></li>
+          <template x-for="menuItem in menuItems">
+            <li class="group">
+              <a :href="menuItem.href" x-text="menuItem.name"></a>
+              <div class="scale-x-0 border-b-2 group-hover:scale-x-100 transform transition duration-300"></div>
+            </li>
+          </template>
         </ul>
       </div>
-    
     </nav>
   </header>
-  <main>
-    <section x-data="content()">
-      <article class="grid -mt-1 md:grid-cols-3 lg:grid-cols-2 xl:flex">
-        <div class="relative xl:col-span-7">
-          <div class="h-full xl:max-h-[540px]">
-            <div class="h-full" :class="{'animate-fade origin-center-center' : animation}">
-              <img class="w-full h-full object-cover sm:hidden md:block lg:hidden" :src="slide.image.mobile" :alt="slide.image.altText">
-              <img class="w-full h-full object-cover hidden sm:block md:hidden lg:block" :src="slide.image.desktop" :alt="slide.image.altText">
+  <main class="overflow-hidden grid grid-rows-[minmax(780px,_1fr)_1fr] md:grid-rows-[minmax(auto,_387px)_1fr] lg:grid-rows-[420px_1fr] xl:grid-rows-[540px_1fr]">
+    <section class="row-start-1 relative">
+      <template x-for="(slide, index) in slides" :key="index">
+        <article
+            x-show="showSlide === index"
+            class="absolute h-full grid -mt-1 md:grid-cols-3 lg:grid-cols-2 xl:flex"
+        >
+          <div class="relative xl:col-span-7">
+            <div class="h-full xl:max-h-[540px] overflow-hidden">
+              <picture
+                    class="h-full"
+                    x-show="showSlide === index"
+                    x-transition:enter="transition transform ease-in-out duration-600 origin-center-center"
+                    x-transition:enter-start="opacity-0 scale-102.5"
+                    x-transition:enter-end="opacity-100 scale-100 translate-y-100"
+                    x-transition:leave="transition transform ease-in-out duration-600 origin-center-center"
+                    x-transition:leave-start="opacity-100 scale-100 translate-y-100"
+                    x-transition:leave-end="opacity-0 scale-102.5">
+                <source :srcset="slide.image.desktop" media="(min-width: 640px)">
+                <img class="w-full h-full object-cover" :src="slide.image.mobile">
+              </picture>
             </div>
-          </div>
-          <div class="absolute bottom-0 right-0 md:translate-x-full">
-            <ul class="flex bg-black">
-              <li>
+            <div class="absolute bottom-0 right-0 md:translate-x-full">
+              <div
+                  class="flex bg-black"
+                  x-show="showSlide === index"
+                  x-transition.opacity.duration.600ms
+              >
                 <button
-                      @click="animate; previousSlide()"
-                      class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
+                    @click="previousSlide(index)"
+                    class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">previous</span>
                   <img class="h-4 xl:h-full" src="images/icon-angle-left.svg" alt="previous arrow">
                 </button>
-              </li>
-              <li>
                 <button
-                      @click="animate; nextSlide()"
-                      class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
+                    @click="nextSlide(index)"
+                    class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">next</span>
                   <img class="h-4 xl:h-full" src="images/icon-angle-right.svg" alt="next arrow">
                 </button>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="space-y-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-2 lg:col-span-1 lg:px-12 xl:min-h-[495px] xl:w-[600px] xl:shrink-0 xl:px-24 xl:pt-32 xl:pb-[4.5rem] xl:space-y-4">
-          <div>
-            <h2 :class="{'animate-fade origin-top-left' : animation}" class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter" x-text="slide.title"></h2>
-            <p :class="{'animate-fade origin-top-left' : animation}" class="text-gray-dark tracking-tight leading-snug pr-1" x-text="slide.description"></p>
+          <div class="grid content-between gap-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-2 lg:col-span-1 lg:px-12 lg:py-20 xl:min-h-[495px] xl:w-[600px] xl:shrink-0 xl:px-24 xl:pt-32 xl:pb-[4.5rem] xl:gap-4 xl:content-center">
+            <div class="md:min-h-[201px]">
+              <h2
+                  class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter"
+                  x-show="showSlide === index"
+                  x-transition:enter="transition transform ease-in-out duration-600 origin-center-center"
+                  x-transition:enter-start="opacity-0 scale-102.5"
+                  x-transition:enter-end="opacity-100 scale-100 translate-y-100"
+                  x-transition:leave="transition transform ease-in-out duration-600 origin-center-center"
+                  x-transition:leave-start="opacity-100 scale-100 translate-y-100"
+                  x-transition:leave-end="opacity-0 scale-102.5"
+                  x-text="slide.title"
+              ></h2>
+              <p
+                  class="text-gray-dark tracking-tight leading-snug pr-1"
+                  x-show="showSlide === index"
+                  x-transition:enter="transition transform ease-in-out duration-600 origin-center-center"
+                  x-transition:enter-start="opacity-0 scale-102.5 -translate-x-50"
+                  x-transition:enter-end="opacity-100 scale-100 translate-x-0"
+                  x-transition:leave="transition transform ease-in-out duration-600 origin-center-center"
+                  x-transition:leave-start="opacity-100 scale-100 translate-x-0"
+                  x-transition:leave-end="opacity-0 scale-102.5 translate-x-50"
+                  x-text="slide.description"
+              ></p>
+            </div>
+            <a
+                :href="slide.href"
+                class="flex items-center gap-4 pt-1 pb-2 uppercase text-sm font-semibold tracking-[0.95em] hover:translate-x-1 hover:text-gray-dark focus-visible:text-gray-dark transition duration-300"
+                x-show="showSlide === index"
+            >
+              <span>Shop now</span>
+              <svg width="40" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M34.05 0l5.481 5.527h.008v.008L40 6l-.461.465v.063l-.062-.001L34.049 12l-.662-.668 4.765-4.805H0v-1h38.206l-4.82-4.86L34.05 0z" fill="currentColor" fill-rule="nonzero"/></svg>
+            </a>
           </div>
-          <button class="flex items-center gap-4 pt-1 pb-2 uppercase text-sm font-semibold tracking-[0.95em] hover:text-gray-dark focus-visible:text-gray-dark transition duration-300">
-            <span>Shop now</span>
-            <svg width="40" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M34.05 0l5.481 5.527h.008v.008L40 6l-.461.465v.063l-.062-.001L34.049 12l-.662-.668 4.765-4.805H0v-1h38.206l-4.82-4.86L34.05 0z" fill="currentColor" fill-rule="nonzero"/></svg>
-          </button>
-        </div>
-      </article>
+        </article>
+      </template>
     </section>
-
-  </main>
-    <footer class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[420px_minmax(0,_1fr)_444px]">
+    <section class="row-start-2 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[420px_minmax(0,_1fr)_444px] xl:-mt-1">
       <div class="">
         <img class="w-full h-full object-cover" src="images/image-about-dark.jpg" alt="comfy black chairs around a coffee table">
       </div>
-     <div class="px-8 py-12 sm:row-start-2 sm:col-span-2 lg:col-start-2 lg:row-start-1 lg:col-span-1 lg:px-12 lg:py-16">
-       <h3 class="mt-1 uppercase font-semibold tracking-[0.3em] leading-none pb-4 lg:font-bold lg:tracking-[0.4em]">
-         About our furniture
-       </h3>
-       <p class="text-gray-dark leading-snug tracking-tight pr-1">
-         Our multifunctional collection blends design and function to suit your individual taste.
-         Make each room unique, or pick a cohesive theme that best express your interests and what
-         inspires you. Find the furniture pieces you need, from traditional to contemporary styles
-         or anything in between. Product specialists are available to help you create your dream space.
-       </p>
-     </div>
+      <div class="px-8 py-12 sm:row-start-2 sm:col-span-2 lg:col-start-2 lg:row-start-1 lg:col-span-1 lg:px-12 lg:py-16">
+        <h3 class="mt-1 uppercase font-semibold tracking-[0.3em] leading-none pb-4 lg:font-bold lg:tracking-[0.4em]">
+          About our furniture
+        </h3>
+        <p class="text-gray-dark leading-snug tracking-tight pr-1">
+          Our multifunctional collection blends design and function to suit your individual taste.
+          Make each room unique, or pick a cohesive theme that best express your interests and what
+          inspires you. Find the furniture pieces you need, from traditional to contemporary styles
+          or anything in between. Product specialists are available to help you create your dream space.
+        </p>
+      </div>
       <div class="">
         <img class="w-full h-full object-cover" src="images/image-about-light.jpg" alt="white chair">
       </div>
-    </footer>
-  <script src="js/content.js"></script>
+    </section>
+  </main>
+  <footer class="fixed bottom-0 inset-x-0 text-center text-gray-dark text-sm p-2 bg-black/90 opacity-0 translate-y-6 hover:opacity-100 hover:translate-y-0 focus-within:opacity-100 focus-within:translate-y-0 transform transition ease-in-out duration-150">
+    Challenge by <a class="text-white hover:underline" href="https://www.frontendmentor.io/challenges/loopstudios-landing-page-N88J5Onjw" target="_blank">Frontend Mentor</a>.
+    Coded by <a class="text-white hover:underline" href="https://www.frontendmentor.io/profile/wendyhamel" target="_blank">Wendy Hamel</a>.
+  </footer>
 </body>
 </html>
