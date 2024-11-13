@@ -21,6 +21,9 @@ module.exports = {
       scale: {
         '102.5': '1.025'
       },
+      spacing: {
+        '540': '540px'
+      },
       transitionDuration: {
         600: '600ms'
       }

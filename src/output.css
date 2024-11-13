@@ -1167,6 +1167,10 @@ video {
     max-height: 540px;
   }
 
+  .xl\:max-h-540 {
+    max-height: 540px;
+  }
+
   .xl\:min-h-\[495px\] {
     min-height: 495px;
   }
