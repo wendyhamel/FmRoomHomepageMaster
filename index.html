@@ -87,7 +87,7 @@
             >
               <picture>
                 <source :srcset="slide.image.desktop" media="(min-width: 640px)">
-                <img class="w-full h-full object-cover" :src="slide.image.mobile">
+                <img class="w-full h-full object-cover" :src="slide.image.mobile" :alt="slide.image.altText">
               </picture>
             </div>
             <div class="absolute bottom-0 right-0 md:translate-x-full">
