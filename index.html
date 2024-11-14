@@ -67,21 +67,21 @@
       </div>
     </nav>
   </header>
-  <main class="overflow-hidden grid grid-rows-[minmax(860px,_1fr)_1fr] md:grid-rows-[minmax(auto,_387px)_1fr] lg:grid-rows-[420px_1fr] xl:grid-rows-[540px_1fr]">
-    <section class="row-start-1 relative">
+  <main class="overflow-hidden">
+    <section class="grid place-content-center">
       <template x-for="(slide, index) in slides" :key="index">
         <article
             x-show="showSlide === index"
             x-cloak
-            class="absolute h-full grid md:grid-cols-3 lg:grid-cols-2 xl:flex"
+            class="col-start-1 row-start-1 h-full md:grid md:grid-cols-3 lg:grid-cols-2 xl:flex"
         >
-          <div class="relative overflow-hidden h-[356px] md:overflow-visible md:h-[387px] lg:h-[420px] xl:col-span-7 xl:h-full">
-            <div class="h-full xl:max-h-540 overflow-hidden"
+          <div class="relative overflow-hidden md:overflow-visible xl:col-span-7 xl:h-full">
+            <div class="h-full overflow-hidden"
                 x-show="showSlide === index"
-                x-transition:enter="transition transform ease-in-out duration-600 origin-bottom-right"
+                x-transition:enter="transition transform ease-in-out duration-1000 origin-bottom-right"
                 x-transition:enter-start="opacity-0 scale-102.5"
                 x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition transform ease-in-out duration-600 origin-bottom-right"
+                x-transition:leave="transition transform ease-in-out duration-1000 origin-bottom-right"
                 x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-102.5"
             >
@@ -92,20 +92,20 @@
             </div>
             <div class="absolute bottom-0 right-0 md:translate-x-full">
               <div
-                  class="flex bg-black"
+                  class="flex bg-black md:w-[16.35vw] xl:w-auto"
                   x-show="showSlide === index"
-                  x-transition.opacity.duration.600ms
+                  x-transition.opacity.duration.1000ms
               >
                 <button
                     @click="previousSlide(index)"
-                    class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
+                    class="grow grid place-content-center px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">previous</span>
                   <img class="h-4 xl:h-full" src="images/icon-angle-left.svg" alt="previous arrow">
                 </button>
                 <button
                     @click="nextSlide(index)"
-                    class="px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
+                    class="grow grid place-content-center px-6 py-5 hover:bg-gray-very-dark focus-visible:bg-gray-very-dark transition duration-300 xl:px-8 xl:py-7"
                 >
                   <span class="sr-only">next</span>
                   <img class="h-4 xl:h-full" src="images/icon-angle-right.svg" alt="next arrow">
@@ -113,15 +113,15 @@
               </div>
             </div>
           </div>
-          <div class="grid content-between gap-8 py-16 px-8 md:col-start-2 md:col-span-2 lg:col-start-2 lg:col-span-1 lg:px-12 lg:py-20 xl:min-h-[495px] xl:w-[600px] xl:shrink-0 xl:px-24 xl:pt-32 xl:pb-28 xl:gap-4">
-            <div class="min-h-[344px] md:min-h-[201px]">
+          <div class="grid content-between gap-8 p-8 sm:py-16 sm:px-8 md:col-start-2 md:col-span-2 lg:col-start-2 lg:col-span-1 lg:px-12 lg:py-20 xl:w-[600px] xl:shrink-0 xl:px-24 xl:pt-32 xl:pb-28 xl:gap-4">
+            <div>
               <h2
-                  class="text-[2.4rem] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter"
+                  class="text-[min(max(1.8rem,_9vw),_2.3rem)] font-semibold tracking-tight leading-none pb-3.5 xl:text-5xl xl:tracking-tighter"
                   x-show="showSlide === index"
-                  x-transition:enter="transition transform ease-in-out duration-600 origin-right"
+                  x-transition:enter="transition transform ease-in-out duration-1000 origin-right"
                   x-transition:enter-start="opacity-0 scale-105"
                   x-transition:enter-end="opacity-100 scale-100"
-                  x-transition:leave="transition transform ease-in-out duration-600 origin-right"
+                  x-transition:leave="transition transform ease-in-out duration-1000 origin-right"
                   x-transition:leave-start="opacity-100 scale-100"
                   x-transition:leave-end="opacity-0 scale-95"
                   x-text="slide.title"
@@ -129,19 +129,25 @@
               <p
                   class="text-gray-dark tracking-tight leading-snug pr-1"
                   x-show="showSlide === index"
-                  x-transition:enter="transition transform ease-in-out duration-600 origin-top"
-                  x-transition:enter-start="opacity-0 scale-95 -translate-x-50"
-                  x-transition:enter-end="opacity-100 scale-100 translate-x-0"
-                  x-transition:leave="transition transform ease-in-out duration-600 origin-top"
-                  x-transition:leave-start="opacity-100 scale-100 translate-x-0"
-                  x-transition:leave-end="opacity-0 scale-105 translate-x-50"
+                  x-transition:enter="transition transform ease-in-out duration-1000 origin-top"
+                  x-transition:enter-start="opacity-0 scale-95"
+                  x-transition:enter-end="opacity-100 scale-100"
+                  x-transition:leave="transition transform ease-in-out duration-1000 origin-top"
+                  x-transition:leave-start="opacity-100 scale-100"
+                  x-transition:leave-end="opacity-0 scale-105"
                   x-text="slide.description"
               ></p>
             </div>
             <a
                 :href="slide.href"
-                class="flex items-center gap-4 pt-1 pb-2 uppercase text-sm font-semibold tracking-[0.95em] hover:translate-x-1 hover:text-gray-dark focus-visible:text-gray-dark transition duration-300"
+                class="flex items-center gap-4 pt-1 pb-2 uppercase text-sm font-semibold tracking-[0.95em] hover:text-gray-dark focus-visible:text-gray-dark transition duration-300"
                 x-show="showSlide === index"
+                x-transition:enter="transition transform ease-in-out duration-1000 origin-top"
+                x-transition:enter-start="opacity-0 scale-y-0 -translate-y-100"
+                x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                x-transition:leave="transition transform ease-in-out duration-1000 origin-bottom"
+                x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                x-transition:leave-end="opacity-0 scale-y-0 translate-y-100"
             >
               <span>Shop now</span>
               <svg width="40" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M34.05 0l5.481 5.527h.008v.008L40 6l-.461.465v.063l-.062-.001L34.049 12l-.662-.668 4.765-4.805H0v-1h38.206l-4.82-4.86L34.05 0z" fill="currentColor" fill-rule="nonzero"/></svg>
@@ -150,7 +156,7 @@
         </article>
       </template>
     </section>
-    <section class="row-start-2 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[420px_minmax(0,_1fr)_444px] xl:-mt-1">
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[420px_minmax(0,_1fr)_444px]">
       <div class="">
         <img class="w-full h-full object-cover" src="images/image-about-dark.jpg" alt="comfy black chairs around a coffee table">
       </div>
